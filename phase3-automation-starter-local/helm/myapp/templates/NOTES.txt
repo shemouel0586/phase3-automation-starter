@@ -1,0 +1,2 @@
+1. Get the service URL by running these commands:
+  kubectl get svc -n {{ .Release.Namespace }} {{ include "myapp.fullname" . }}

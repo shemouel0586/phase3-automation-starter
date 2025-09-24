@@ -1,0 +1,25 @@
+name: Deploy (optional)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ secrets.KUBECONFIG_B64 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.30.2
+      - name: Write kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG_B64 }}" | base64 -d > $HOME/.kube/config
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.4
+      - name: Upgrade/Install myapp
+        run: |
+          helm upgrade --install myapp ./helm/myapp --namespace default --create-namespace
