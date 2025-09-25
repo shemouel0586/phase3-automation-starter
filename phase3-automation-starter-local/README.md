@@ -65,3 +65,5 @@ develop -> release/* -> tests -> merge to main + tag
 - [x] CI matrix with pylint (3.10–3.12)
 - [x] Branching strategy + PR workflow documented in this README
 - [x] Optional deploy workflow included
+---
+> Update: added feature branch example.
